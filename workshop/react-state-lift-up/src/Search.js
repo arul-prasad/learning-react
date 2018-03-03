@@ -33,13 +33,26 @@ export class Search extends React.Component {
 export class SearchResult extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {results: props.results};
   }
 
   render() {
+    
+    const filteredData = 
+      this.props.data.filter(function(data) {
+      if(this.props.searchText) {
+        return (data.indexOf(this.props.searchText) != -1);
+      } else {
+        return true;
+      }
+    }.bind(this))
+
+    const listData = filteredData.map(function(data) {
+      return <li> {data} </li>; 
+    });
+
     return (
       <div>
-          <li> search Result {this.props.result} </li>
+        { listData }
       </div> 
     )
   }
